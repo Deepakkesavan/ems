@@ -1,0 +1,12 @@
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\bin\Debug\net8.0\GlobalExceptionHandler.deps.json
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\bin\Debug\net8.0\GlobalExceptionHandler.dll
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\bin\Debug\net8.0\GlobalExceptionHandler.pdb
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\obj\Debug\net8.0\GlobalExceptionHandler.csproj.AssemblyReference.cache
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\obj\Debug\net8.0\GlobalExceptionHandler.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\obj\Debug\net8.0\GlobalExceptionHandler.AssemblyInfoInputs.cache
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\obj\Debug\net8.0\GlobalExceptionHandler.AssemblyInfo.cs
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\obj\Debug\net8.0\GlobalExceptionHandler.csproj.CoreCompileInputs.cache
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\obj\Debug\net8.0\GlobalExceptionHandler.dll
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\obj\Debug\net8.0\refint\GlobalExceptionHandler.dll
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\obj\Debug\net8.0\GlobalExceptionHandler.pdb
+C:\Users\DeepakK\Source\Repos\employee-information-inner\GlobalExceptionHandler\obj\Debug\net8.0\ref\GlobalExceptionHandler.dll

@@ -1,0 +1,17 @@
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\bin\Debug\net8.0\EmpInfoInfra.deps.json
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\bin\Debug\net8.0\EmpInfoInfra.runtimeconfig.json
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\bin\Debug\net8.0\EmpInfoInfra.dll
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\bin\Debug\net8.0\EmpInfoInfra.pdb
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\bin\Debug\net8.0\GlobalExceptionHandler.dll
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\bin\Debug\net8.0\GlobalExceptionHandler.pdb
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\EmpInfoInfra.csproj.AssemblyReference.cache
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\EmpInfoInfra.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\EmpInfoInfra.AssemblyInfoInputs.cache
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\EmpInfoInfra.AssemblyInfo.cs
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\EmpInfoInfra.csproj.CoreCompileInputs.cache
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\EmpInfoI.B3AB93F9.Up2Date
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\EmpInfoInfra.dll
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\refint\EmpInfoInfra.dll
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\EmpInfoInfra.pdb
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\EmpInfoInfra.genruntimeconfig.cache
+C:\Users\DeepakK\Source\Repos\employee-information-inner\EmployeeInformationInfrastructure\obj\Debug\net8.0\ref\EmpInfoInfra.dll

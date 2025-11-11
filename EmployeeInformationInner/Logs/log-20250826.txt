@@ -1,0 +1,332 @@
+2025-08-26 12:27:01.934 +05:30 [INF] Starting SqlDependency
+2025-08-26 12:27:02.956 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 12:27:03.561 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 12:27:03.960 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 12:27:03.968 +05:30 [INF] Hosting environment: Development
+2025-08-26 12:27:03.972 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 12:31:29.349 +05:30 [INF] Starting SqlDependency
+2025-08-26 12:31:30.047 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 12:31:30.440 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 12:31:30.570 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 12:31:30.608 +05:30 [INF] Hosting environment: Development
+2025-08-26 12:31:30.610 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 12:35:51.626 +05:30 [INF] Starting SqlDependency
+2025-08-26 12:35:52.335 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 12:35:52.785 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 12:35:53.079 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 12:35:53.320 +05:30 [INF] Hosting environment: Development
+2025-08-26 12:35:53.394 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 12:36:16.614 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 12:36:17.096 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 12:38:28.936 +05:30 [INF] Starting SqlDependency
+2025-08-26 12:38:29.794 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 12:38:30.212 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 12:38:30.399 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 12:38:31.104 +05:30 [INF] Hosting environment: Development
+2025-08-26 12:38:31.144 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 12:38:51.922 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 12:38:52.212 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 12:38:53.685 +05:30 [INF] Executed DbCommand (25ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0
+2025-08-26 12:38:53.999 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 30) (DbType = AnsiString), @p1='?' (DbType = DateTime), @p2='?' (Size = 4000), @p3='?' (DbType = DateTime2), @p4='?' (Size = 60) (DbType = AnsiString), @p5='?' (Size = 100) (DbType = AnsiString), @p6='?' (DbType = Guid), @p7='?' (DbType = DateTime), @p8='?' (Size = 100) (DbType = AnsiString), @p9='?' (Size = 8000) (DbType = Binary), @p10='?' (Size = 4000), @p11='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Employee] ([EmpID], [CreatedAt], [CreatedBy], [CreatedTime], [Email], [FirstName], [Id], [LastModified], [LastName], [Profile], [UpdatedBy], [UpdatedTime])
+OUTPUT INSERTED.[IsActive]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11);
+2025-08-26 12:38:54.056 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'EmpInfoInfra.Models.EmployeeDetailsContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Violation of PRIMARY KEY constraint 'PK__Employee__AF2DBA7961504EE4'. Cannot insert duplicate key in object 'dbo.Employee'. The duplicate key value is (1173).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:045468db-7cee-447d-b7cb-349c7bef69b7
+Error Number:2627,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Violation of PRIMARY KEY constraint 'PK__Employee__AF2DBA7961504EE4'. Cannot insert duplicate key in object 'dbo.Employee'. The duplicate key value is (1173).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:045468db-7cee-447d-b7cb-349c7bef69b7
+Error Number:2627,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-08-26 12:42:08.030 +05:30 [INF] Starting SqlDependency
+2025-08-26 12:42:08.808 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 12:42:09.253 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 12:42:09.395 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 12:42:09.406 +05:30 [INF] Hosting environment: Development
+2025-08-26 12:42:09.410 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 12:42:58.953 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 12:42:59.285 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 12:43:00.717 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0
+2025-08-26 12:43:00.951 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (Size = 30) (DbType = AnsiString), @p1='?' (DbType = DateTime), @p2='?' (Size = 4000), @p3='?' (DbType = DateTime2), @p4='?' (Size = 60) (DbType = AnsiString), @p5='?' (Size = 100) (DbType = AnsiString), @p6='?' (DbType = Guid), @p7='?' (DbType = DateTime), @p8='?' (Size = 100) (DbType = AnsiString), @p9='?' (Size = 8000) (DbType = Binary), @p10='?' (Size = 4000), @p11='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Employee] ([EmpID], [CreatedAt], [CreatedBy], [CreatedTime], [Email], [FirstName], [Id], [LastModified], [LastName], [Profile], [UpdatedBy], [UpdatedTime])
+OUTPUT INSERTED.[IsActive]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11);
+2025-08-26 12:43:01.006 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'EmpInfoInfra.Models.EmployeeDetailsContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Violation of PRIMARY KEY constraint 'PK__Employee__AF2DBA7961504EE4'. Cannot insert duplicate key in object 'dbo.Employee'. The duplicate key value is (1173).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:6d99c608-b524-4502-9494-926c403c070a
+Error Number:2627,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Violation of PRIMARY KEY constraint 'PK__Employee__AF2DBA7961504EE4'. Cannot insert duplicate key in object 'dbo.Employee'. The duplicate key value is (1173).
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:6d99c608-b524-4502-9494-926c403c070a
+Error Number:2627,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-08-26 12:48:08.195 +05:30 [INF] Starting SqlDependency
+2025-08-26 12:48:08.891 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 12:48:09.352 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 12:48:09.598 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 12:48:09.727 +05:30 [INF] Hosting environment: Development
+2025-08-26 12:48:09.730 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 12:48:27.469 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 12:48:27.876 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 12:48:29.253 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0
+2025-08-26 12:48:29.465 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[@p12='?' (Size = 30) (DbType = AnsiString), @p0='?' (DbType = DateTime), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (Size = 60) (DbType = AnsiString), @p4='?' (Size = 100) (DbType = AnsiString), @p5='?' (DbType = Guid), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (Size = 100) (DbType = AnsiString), @p9='?' (Size = 8000) (DbType = Binary), @p10='?' (Size = 4000), @p11='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Employee] SET [CreatedAt] = @p0, [CreatedBy] = @p1, [CreatedTime] = @p2, [Email] = @p3, [FirstName] = @p4, [Id] = @p5, [IsActive] = @p6, [LastModified] = @p7, [LastName] = @p8, [Profile] = @p9, [UpdatedBy] = @p10, [UpdatedTime] = @p11
+OUTPUT 1
+WHERE [EmpID] = @p12;
+2025-08-26 13:14:42.766 +05:30 [INF] Starting SqlDependency
+2025-08-26 13:14:43.425 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 13:14:43.776 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 13:14:43.970 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 13:14:43.983 +05:30 [INF] Hosting environment: Development
+2025-08-26 13:14:43.985 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 13:21:22.288 +05:30 [INF] Starting SqlDependency
+2025-08-26 13:21:23.025 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 13:21:23.395 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 13:21:23.554 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 13:21:23.848 +05:30 [INF] Hosting environment: Development
+2025-08-26 13:21:23.853 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 13:22:25.710 +05:30 [INF] Starting SqlDependency
+2025-08-26 13:22:26.292 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 13:22:26.649 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 13:22:26.778 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 13:22:26.784 +05:30 [INF] Hosting environment: Development
+2025-08-26 13:22:26.786 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 13:22:43.294 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 13:22:43.590 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 13:42:06.014 +05:30 [INF] Starting SqlDependency
+2025-08-26 13:42:06.876 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 13:42:07.326 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 13:42:07.473 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 13:42:07.478 +05:30 [INF] Hosting environment: Development
+2025-08-26 13:42:07.480 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 13:42:36.878 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 13:42:37.135 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 13:59:55.768 +05:30 [INF] Starting SqlDependency
+2025-08-26 13:59:56.434 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 13:59:56.788 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 13:59:56.916 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 13:59:56.922 +05:30 [INF] Hosting environment: Development
+2025-08-26 13:59:56.951 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 14:00:42.624 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 14:00:42.894 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 14:01:24.734 +05:30 [INF] Starting SqlDependency
+2025-08-26 14:01:25.378 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 14:01:25.786 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 14:01:25.938 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 14:01:25.946 +05:30 [INF] Hosting environment: Development
+2025-08-26 14:01:25.948 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 14:01:40.812 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 14:01:41.076 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 15:02:21.596 +05:30 [INF] Starting SqlDependency
+2025-08-26 15:02:22.458 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 15:02:22.824 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 15:02:22.956 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 15:02:23.025 +05:30 [INF] Hosting environment: Development
+2025-08-26 15:02:23.027 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 15:02:37.059 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 15:02:37.305 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 15:02:43.042 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0
+2025-08-26 15:21:31.175 +05:30 [INF] Starting SqlDependency
+2025-08-26 15:21:31.777 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 15:21:32.137 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 15:21:32.278 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 15:21:32.285 +05:30 [INF] Hosting environment: Development
+2025-08-26 15:21:32.288 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 15:21:53.688 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 15:21:53.956 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 15:22:00.690 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0
+2025-08-26 15:37:23.481 +05:30 [INF] Starting SqlDependency
+2025-08-26 15:37:24.103 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 15:37:24.478 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 15:37:24.659 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 15:37:25.061 +05:30 [INF] Hosting environment: Development
+2025-08-26 15:37:25.065 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 15:38:04.032 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 15:38:04.283 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 15:47:31.348 +05:30 [INF] Starting SqlDependency
+2025-08-26 15:47:31.951 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 15:47:32.304 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 15:47:32.470 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 15:47:32.752 +05:30 [INF] Hosting environment: Development
+2025-08-26 15:47:32.754 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 15:48:06.721 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 15:48:06.979 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 15:48:08.339 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[@__empId_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime], [p].[EmpId], [p].[Age], [p].[CreatedBy], [p].[CreatedTime], [p].[DOB], [p].[EmergencyContact1], [p].[EmergencyContact2], [p].[EmergencyContactName1], [p].[EmergencyContactName2], [p].[Gender], [p].[Id], [p].[IsActive], [p].[PermanentAddress], [p].[PersonalPhoneNumber], [p].[PresentAddress], [p].[UpdatedBy], [p].[UpdatedTime], [w].[EmpID], [w].[BID], [w].[CreatedBy], [w].[CreatedTime], [w].[CurrExp], [w].[DeptID], [w].[DesgnID], [w].[DOC], [w].[DOJ], [w].[EmailTriggerStatus], [w].[Id], [w].[IsActive], [w].[LocID], [w].[ManagerEmpCode], [w].[ProjId], [w].[ReportingManager], [w].[RoleID], [w].[SourceOfHire], [w].[Status], [w].[TotalExp], [w].[TransferFromDate], [w].[TypeID], [w].[UpdatedBy], [w].[UpdatedTime], [d].[DesgID], [d].[CreatedBy], [d].[CreatedTime], [d].[Desg], [d].[Id], [d].[IsActive], [d].[UpdatedBy], [d].[UpdatedTime], [r].[RoleID], [r].[CreatedBy], [r].[CreatedTime], [r].[Id], [r].[IsActive], [r].[RoleName], [r].[UpdatedBy], [r].[UpdatedTime], [p0].[ProjID], [p0].[CreatedBy], [p0].[CreatedTime], [p0].[Id], [p0].[IsActive], [p0].[Project], [p0].[UpdatedBy], [p0].[UpdatedTime], [i].[EmpId], [i].[Aadhar], [i].[AadharFile], [i].[CreatedBy], [i].[CreatedTime], [i].[Id], [i].[IFSC], [i].[IsActive], [i].[PAN], [i].[PANFile], [i].[UAN], [i].[UpdatedBy], [i].[UpdatedTime]
+FROM [Employee] AS [e]
+LEFT JOIN [PersonalDetails] AS [p] ON [e].[EmpID] = [p].[EmpId]
+LEFT JOIN [WorkInfo] AS [w] ON [e].[EmpID] = [w].[EmpID]
+LEFT JOIN [Designation] AS [d] ON [w].[DesgnID] = [d].[Id]
+LEFT JOIN [Role] AS [r] ON [w].[RoleID] = [r].[RoleID]
+LEFT JOIN [Project] AS [p0] ON [w].[ProjId] = [p0].[ProjID]
+LEFT JOIN [IdentityInfo] AS [i] ON [e].[EmpID] = [i].[EmpId]
+WHERE [e].[EmpID] = @__empId_0
+2025-08-26 15:50:33.453 +05:30 [INF] Starting SqlDependency
+2025-08-26 15:50:34.062 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-26 15:50:34.454 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-26 15:50:34.689 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 15:50:34.995 +05:30 [INF] Hosting environment: Development
+2025-08-26 15:50:34.997 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-26 15:50:57.084 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-26 15:50:57.345 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-26 15:51:04.410 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0
+2025-08-26 16:17:46.876 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0
+2025-08-26 16:17:46.992 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[@p12='?' (Size = 30) (DbType = AnsiString), @p0='?' (DbType = DateTime), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (Size = 60) (DbType = AnsiString), @p4='?' (Size = 100) (DbType = AnsiString), @p5='?' (DbType = Guid), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (Size = 100) (DbType = AnsiString), @p9='?' (Size = -1) (DbType = Binary), @p10='?' (Size = 4000), @p11='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Employee] SET [CreatedAt] = @p0, [CreatedBy] = @p1, [CreatedTime] = @p2, [Email] = @p3, [FirstName] = @p4, [Id] = @p5, [IsActive] = @p6, [LastModified] = @p7, [LastName] = @p8, [Profile] = @p9, [UpdatedBy] = @p10, [UpdatedTime] = @p11
+OUTPUT 1
+WHERE [EmpID] = @p12;
+2025-08-26 16:17:51.909 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0
+2025-08-26 16:17:51.941 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@p12='?' (Size = 30) (DbType = AnsiString), @p0='?' (DbType = DateTime), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (Size = 60) (DbType = AnsiString), @p4='?' (Size = 100) (DbType = AnsiString), @p5='?' (DbType = Guid), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (Size = 100) (DbType = AnsiString), @p9='?' (Size = -1) (DbType = Binary), @p10='?' (Size = 4000), @p11='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Employee] SET [CreatedAt] = @p0, [CreatedBy] = @p1, [CreatedTime] = @p2, [Email] = @p3, [FirstName] = @p4, [Id] = @p5, [IsActive] = @p6, [LastModified] = @p7, [LastName] = @p8, [Profile] = @p9, [UpdatedBy] = @p10, [UpdatedTime] = @p11
+OUTPUT 1
+WHERE [EmpID] = @p12;
+2025-08-26 16:18:25.280 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0
+2025-08-26 16:20:27.780 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0
+2025-08-26 16:20:27.803 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@p12='?' (Size = 30) (DbType = AnsiString), @p0='?' (DbType = DateTime), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (Size = 60) (DbType = AnsiString), @p4='?' (Size = 100) (DbType = AnsiString), @p5='?' (DbType = Guid), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (Size = 100) (DbType = AnsiString), @p9='?' (Size = 8000) (DbType = Binary), @p10='?' (Size = 4000), @p11='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Employee] SET [CreatedAt] = @p0, [CreatedBy] = @p1, [CreatedTime] = @p2, [Email] = @p3, [FirstName] = @p4, [Id] = @p5, [IsActive] = @p6, [LastModified] = @p7, [LastName] = @p8, [Profile] = @p9, [UpdatedBy] = @p10, [UpdatedTime] = @p11
+OUTPUT 1
+WHERE [EmpID] = @p12;
+2025-08-26 16:20:44.539 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 30) (DbType = AnsiString)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime]
+FROM [Employee] AS [e]
+WHERE [e].[EmpID] = @__p_0

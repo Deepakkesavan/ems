@@ -1,0 +1,52 @@
+2025-08-21 11:50:20.223 +05:30 [INF] Starting SqlDependency
+2025-08-21 13:03:22.248 +05:30 [INF] Starting SqlDependency
+2025-08-21 13:05:14.924 +05:30 [INF] Starting SqlDependency
+2025-08-21 13:05:21.044 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-21 13:05:21.491 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-21 13:05:21.663 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-21 13:05:21.669 +05:30 [INF] Hosting environment: Development
+2025-08-21 13:05:21.853 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-21 13:05:46.228 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-21 13:05:50.260 +05:30 [INF] Employee data retrieved from in-memory cache.
+2025-08-21 13:29:26.117 +05:30 [INF] Starting SqlDependency
+2025-08-21 13:29:30.371 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-21 13:29:30.775 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-21 13:29:30.947 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-21 13:29:31.299 +05:30 [INF] Hosting environment: Development
+2025-08-21 13:29:31.301 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-21 13:31:56.058 +05:30 [INF] Starting SqlDependency
+2025-08-21 13:32:00.448 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-21 13:32:00.848 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-21 13:32:00.986 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-21 13:32:00.994 +05:30 [INF] Hosting environment: Development
+2025-08-21 13:32:01.043 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-21 16:33:29.546 +05:30 [INF] Starting SqlDependency
+2025-08-21 16:33:30.288 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-21 16:33:30.691 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-21 16:33:30.855 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-21 16:33:31.068 +05:30 [INF] Hosting environment: Development
+2025-08-21 16:33:31.071 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-21 16:33:48.681 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-21 17:35:44.832 +05:30 [INF] Starting SqlDependency
+2025-08-21 17:35:45.491 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-21 17:35:45.876 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-21 17:35:46.012 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-21 17:35:46.015 +05:30 [INF] Hosting environment: Development
+2025-08-21 17:35:46.017 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-08-21 17:35:54.141 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-08-21 17:35:54.596 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-08-21 17:35:55.920 +05:30 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[EmpID], [e].[CreatedAt], [e].[CreatedBy], [e].[CreatedTime], [e].[Email], [e].[FirstName], [e].[Id], [e].[IsActive], [e].[LastModified], [e].[LastName], [e].[Profile], [e].[UpdatedBy], [e].[UpdatedTime], [p].[EmpId], [p].[Age], [p].[CreatedBy], [p].[CreatedTime], [p].[DOB], [p].[EmergencyContact1], [p].[EmergencyContact2], [p].[EmergencyContactName1], [p].[EmergencyContactName2], [p].[Gender], [p].[Id], [p].[IsActive], [p].[PermanentAddress], [p].[PersonalPhoneNumber], [p].[PresentAddress], [p].[UpdatedBy], [p].[UpdatedTime], [w].[EmpID], [w].[BID], [w].[CreatedBy], [w].[CreatedTime], [w].[CurrExp], [w].[DeptID], [w].[DesgnID], [w].[DOC], [w].[DOJ], [w].[EmailTriggerStatus], [w].[Id], [w].[IsActive], [w].[LocID], [w].[ManagerEmpCode], [w].[ProjId], [w].[ReportingManager], [w].[RoleID], [w].[SourceOfHire], [w].[Status], [w].[TotalExp], [w].[TransferFromDate], [w].[TypeID], [w].[UpdatedBy], [w].[UpdatedTime], [d].[DesgID], [d].[CreatedBy], [d].[CreatedTime], [d].[Desg], [d].[Id], [d].[IsActive], [d].[UpdatedBy], [d].[UpdatedTime], [r].[RoleID], [r].[CreatedBy], [r].[CreatedTime], [r].[Id], [r].[IsActive], [r].[RoleName], [r].[UpdatedBy], [r].[UpdatedTime], [p0].[ProjID], [p0].[CreatedBy], [p0].[CreatedTime], [p0].[Id], [p0].[IsActive], [p0].[Project], [p0].[UpdatedBy], [p0].[UpdatedTime], [i].[EmpId], [i].[Aadhar], [i].[AadharFile], [i].[CreatedBy], [i].[CreatedTime], [i].[Id], [i].[IFSC], [i].[IsActive], [i].[PAN], [i].[PANFile], [i].[UAN], [i].[UpdatedBy], [i].[UpdatedTime]
+FROM [Employee] AS [e]
+LEFT JOIN [PersonalDetails] AS [p] ON [e].[EmpID] = [p].[EmpId]
+LEFT JOIN [WorkInfo] AS [w] ON [e].[EmpID] = [w].[EmpID]
+LEFT JOIN [Designation] AS [d] ON [w].[DesgnID] = [d].[Id]
+LEFT JOIN [Role] AS [r] ON [w].[RoleID] = [r].[RoleID]
+LEFT JOIN [Project] AS [p0] ON [w].[ProjId] = [p0].[ProjID]
+LEFT JOIN [IdentityInfo] AS [i] ON [e].[EmpID] = [i].[EmpId]
+2025-08-21 17:43:53.957 +05:30 [INF] Starting SqlDependency
+2025-08-21 17:43:54.525 +05:30 [INF] SqlDependency not triggered correctly. Type=Subscribe, Info=Invalid, Source=Statement
+2025-08-21 17:43:54.842 +05:30 [INF] Now listening on: http://localhost:5109
+2025-08-21 17:43:54.965 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-21 17:43:54.974 +05:30 [INF] Hosting environment: Development
+2025-08-21 17:43:54.977 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner

@@ -1,0 +1,9 @@
+2025-05-14 11:52:13.092 +05:30 [INF] Starting SqlDependency
+2025-05-14 11:52:15.386 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-14 11:52:15.390 +05:30 [INF] Hosting environment: Development
+2025-05-14 11:52:15.394 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-05-14 12:15:52.617 +05:30 [INF] Starting SqlDependency
+2025-05-14 12:15:53.715 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-14 12:15:53.716 +05:30 [INF] Hosting environment: Development
+2025-05-14 12:15:53.718 +05:30 [INF] Content root path: C:\Users\JoyInfantaJ\Documents\SqlDependency\employee-information-inner\EmployeeInformationInner
+2025-05-14 12:16:13.178 +05:30 [INF] Employee data retrieved from in-memory cache.
