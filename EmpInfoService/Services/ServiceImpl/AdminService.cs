@@ -32,7 +32,7 @@ namespace EmpInfoService.Services.ServiceImpl
                 Email = employeeDto.Email,
                 Profile = employeeDto.Profile,
                 CreatedTime = DateTime.UtcNow,
-                UpdatedTime = DateTime.UtcNow,
+                LastModified = DateTime.UtcNow,
                 CreatedBy = "Admin",
                 WorkInfo = new WorkInfo
                 {
@@ -47,7 +47,6 @@ namespace EmpInfoService.Services.ServiceImpl
                     EmailTriggerStatus = employeeDto.EmailTriggerStatus,
                     TransferFromDate = employeeDto.TransferFromDate,
                     CreatedTime = DateTime.UtcNow,
-                    UpdatedTime = DateTime.UtcNow,
                     CreatedBy = "Admin"
                 },
             };
@@ -71,7 +70,7 @@ namespace EmpInfoService.Services.ServiceImpl
                 LastName = employeeDto.LastName,
                 Email = employeeDto.Email,
                 Profile = employeeDto.Profile,
-                UpdatedTime = DateTime.UtcNow,
+                LastModified = DateTime.UtcNow,
                 UpdatedBy = "Admin",
                 WorkInfo = new WorkInfo
                 {
@@ -85,7 +84,7 @@ namespace EmpInfoService.Services.ServiceImpl
                     ReportingManager = employeeDto.ReportingManager,
                     EmailTriggerStatus = employeeDto.EmailTriggerStatus,
                     TransferFromDate = employeeDto.TransferFromDate,
-                    UpdatedTime = DateTime.UtcNow,
+                    //UpdatedTime = DateTime.UtcNow,
                     UpdatedBy = "Admin"
                 },
             };

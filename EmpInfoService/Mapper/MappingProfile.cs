@@ -77,6 +77,19 @@ namespace EmpInfoService.Mapper
 
             // Map from Employee to EmployeeDto
             CreateMap<Employee, EmployeeDto>();
+
+            CreateMap<Employee, OrgChartDto>()
+                .ForMember(dest => dest.EmpId, opt => opt.MapFrom(src => src.EmpId))
+                .ForMember(dest=>dest.Name,opt=>opt.MapFrom(src=>src.FirstName+" "+src.LastName))
+                .ForMember(dest=>dest.Designation,opt=>opt.MapFrom(src=>src.WorkInfo!.Desgn!.Desg))
+                .ForMember(dest=>dest.Department,opt=>opt.MapFrom(src=>src.WorkInfo!.Dept!.Department1))
+                .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.PersonalDetail!.PersonalPhoneNumber))
+                .ForMember(dest=>dest.Email,opt=>opt.MapFrom(src=>src.Email))
+                .ForMember(dest=>dest.HireDate,opt=>opt.MapFrom(src=>src.WorkInfo!.Doj))
+                .ForMember(dest=>dest.ReportsCount,opt=>opt.Ignore())
+                .ForMember(dest=>dest.ReportsTo,opt=>opt.MapFrom(src=>src.WorkInfo!.ManagerEmpCode))
+                .ForMember(dest=>dest.Location,opt=>opt.MapFrom(src=>src.WorkInfo!.Loc))
+                .ForMember(dest=>dest.Children,opt=>opt.Ignore());
         }
     }
         }

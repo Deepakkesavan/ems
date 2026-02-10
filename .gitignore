@@ -1,0 +1,168 @@
+﻿##############################
+# VISUAL STUDIO & IDE FILES  #
+##############################
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache/options directory
+.vs/
+.vscode/
+.idea/
+**/.vs/
+**/bin/
+**/obj/
+bin/
+obj/
+
+# Visual Studio config
+.vsconfig
+
+# Rider
+.idea/
+*.sln.iml
+
+##############################
+# BUILD & OUTPUT DIRECTORIES #
+##############################
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+out/
+artifacts/
+
+# Publish output
+publish/
+dist/
+tmp/
+temp/
+
+##############################
+# TEST & BENCHMARK FILES     #
+##############################
+
+# MSTest test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# BenchmarkDotNet artifacts
+BenchmarkDotNet.Artifacts/
+
+##############################
+# PACKAGE MANAGEMENT FILES   #
+##############################
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# Restore logs
+nuget.exe
+*.nuget.props
+*.nuget.targets
+
+##############################
+# ENTITY FRAMEWORK FILES     #
+##############################
+
+# EF Core migration snapshots (auto-generated)
+**/Migrations/*.Designer.cs
+**/Migrations/*Snapshot.cs
+
+##############################
+# ASP.NET CORE SPECIFIC FILES#
+##############################
+
+# Local environment settings
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json.user
+
+# Azure Functions (if any)
+local.settings.json
+
+# User secrets
+secrets.json
+
+# IIS / Hosting
+iisexpress/
+*.vspscc
+*.vssscc
+
+##############################
+# LOGS, CACHE & DUMPS        #
+##############################
+
+# Logs
+*.log
+*.tlog
+*.svclog
+*.etl
+
+# Dumps
+*.dmp
+*.stackdump
+
+##############################
+# OS / SYSTEM FILES          #
+##############################
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Linux
+*.swp
+*.swo
+
+##############################
+# MISC                       #
+##############################
+
+# SQL / DB files
+*.mdf
+*.ldf
+*.bak
+*.dbmdl
+
+# Other temp or auto-generated files
+*.tmp
+*.temp
+*.cache
+*.bak
+*.log
+*.zip
+*.rar
+*.7z
+
+# JetBrains Rider data
+.idea/
+*.sln.iml
+
+# Build configuration caches
+project.lock.json
+project.fragment.lock.json
+
+# Tye, Docker, Kubernetes
+.tye/
+*.env
+docker-compose.override.yml
+/EmployeeInformationInner/Properties/launchSettings.json

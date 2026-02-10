@@ -1,205 +1,188 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using EmpInfoInner.Config;
+using EmpInfoService.Constant;
+using EmpInfoService.Model;
+using GlobalExceptionHandler.Models;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 
 namespace EmpInfoInner.Middleware
 {
+    
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<JwtMiddleware> _logger;
         private readonly string _jwtSecret;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly MemoryCacheService _memoryCacheService;
 
-        public JwtMiddleware(RequestDelegate next, ILogger<JwtMiddleware> logger, string jwtSecret = "@290200muiralcssocustomlogin!1216")
+        public JwtMiddleware(RequestDelegate next, IConfiguration configuration, IHttpClientFactory httpClientFactory, MemoryCacheService memoryCacheService)
         {
             _next = next;
-            _logger = logger;
-            _jwtSecret = jwtSecret;
+            _jwtSecret = configuration["JWT_SECRET"] ?? throw new InvalidOperationException("JWT Secret missing from configuration.");
+            _httpClientFactory = httpClientFactory;
+            _memoryCacheService = memoryCacheService;
         }
 
         public async Task Invoke(HttpContext context)
         {
-            _logger.LogInformation("Incoming request: {Path}", context.Request.Path.Value);
+            var path = context.Request.Path.Value ?? "";
 
-            var path = context.Request.Path.Value;
-
+            // Skip JWT validation for swagger/public paths
             if (path.StartsWith("/swagger", StringComparison.OrdinalIgnoreCase))
             {
                 await _next(context);
                 return;
             }
 
-            try
-            {
-                // Get JWT from cookie or Authorization header
-                var jwtToken = context.Request.Cookies["JWT"];
-                UserDto user = null;
+            UserDto? user = null;
+            string? bearerToken = null;
 
-                if (!string.IsNullOrEmpty(jwtToken))
-                {
-                    user = await ValidateJwtWithRefresh(context, jwtToken);
-                }
-                else if (context.Request.Headers.TryGetValue("Authorization", out var authHeader))
-                {
-                    if (authHeader.ToString().StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            // Try JWT from Authorization header
+            if (user == null && context.Request.Headers.TryGetValue("Authorization", out var authHeader) &&
+                authHeader.ToString().StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                bearerToken = authHeader.ToString()["Bearer ".Length..].Trim();
+                user = ValidateJwtLocally(bearerToken);
+                if (user != null) context.Items["JWT"] = bearerToken;
+
+            }
+
+            // 3. If validation failed but we have a token, try to refresh
+            if (user == null && !string.IsNullOrEmpty(bearerToken))
+            {
+                user = await RefreshJwtUsingRefreshToken(context, bearerToken);
+            }
+
+            // 4. If still null → return 401
+            if (user == null) {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                await context.Response.WriteAsync("Unauthorized: Invalid or expired token.");
+                return;
+            }
+
+            // 5. Attach user info to HttpContext
+            context.Items["User"] = user;
+            context.User = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                     {
-                        var bearerToken = authHeader.ToString().Substring("Bearer ".Length).Trim();
-                        user = await ValidateJwtWithRefresh(context, bearerToken);
-                    }
-                }
+                        new(CustomClaimTypes.EmpId, user.EmpId),
+                        new(CustomClaimTypes.Designation, user.Designation)
+                    }, "JWT"));
 
-                // If JWT missing, try refresh token
-                if (user == null)
-                {
-                    var refreshToken = context.Request.Cookies["REFRESH_TOKEN"];
-                    if (!string.IsNullOrEmpty(refreshToken))
-                    {
-                        _logger.LogInformation("JWT missing or expired. Attempting refresh with refresh token...");
-                        user = await RefreshJwtUsingRefreshToken(context, refreshToken);
-                    }
-                }
-
-                // Still null → throw
-                if (user == null)
-                    throw new UnauthorizedAccessException("No valid JWT or refresh token found.");
-
-                // Attach user
-                context.Items["User"] = user;
-
-                var claims = new List<Claim>
-                {
-                    new Claim("empId", user.EmpId.ToString()),
-                    new Claim("designation", user.Designation)
-                };
-
-                var identity = new ClaimsIdentity(claims, "JWT");
-                context.User = new ClaimsPrincipal(identity);
-
-                _logger.LogInformation("User attached: EmpId={EmpId}, Designation={Designation}", user.EmpId, user.Designation);
-
-                await _next(context);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "JWT Middleware error: {Message}", ex.Message);
-                await RespondUnauthorized(context, ex.Message);
-            }
+            await _next(context);
         }
 
-        // ------------------ JWT Validation with Refresh ------------------
-        private async Task<UserDto> ValidateJwtWithRefresh(HttpContext context, string jwtToken)
+        private async Task<UserDto?> RefreshJwtUsingRefreshToken(HttpContext context, string expiredToken)
         {
-            try
-            {
-                return ValidateJwtLocally(jwtToken, context);
-            }
-            catch (SecurityTokenExpiredException)
-            {
-                _logger.LogWarning("JWT expired. Attempting refresh...");
+            string url = await _memoryCacheService.GetModuleName(BussinessConstant.SSO_MODULE_NAME) + "/api/internal/refresh";
+            HttpClient httpClient = _httpClientFactory.CreateClient();
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", expiredToken);
 
-                var refreshToken = context.Request.Cookies["REFRESH_TOKEN"];
-                if (string.IsNullOrEmpty(refreshToken))
-                    throw new UnauthorizedAccessException("Refresh token missing in cookie.");
+            var response = await httpClient.PostAsJsonAsync(url, new { });
 
-                var refreshedUser = await RefreshJwtUsingRefreshToken(context, refreshToken);
-                if (refreshedUser == null)
-                    throw new UnauthorizedAccessException("Unable to refresh JWT. Session expired.");
+            if (!response.IsSuccessStatusCode) return null;
 
-                return refreshedUser;
-            }
-            catch (Exception ex)
+            BaseResponse<RefreshResponse>? result =  await response.Content.ReadFromJsonAsync<BaseResponse<RefreshResponse>>();
+            if (result == null ||
+                 result.Result?.Token == null ||
+                 (result.Errors != null && result.Errors.Any()))
             {
-                _logger.LogError(ex, "JWT validation failed.");
-                throw new UnauthorizedAccessException($"Invalid JWT: {ex.Message}");
+                // Log errors if necessary: unifiedResponse.Errors
+                return null;
             }
+            String newJwt = result.Result.Token;
+            if (string.IsNullOrEmpty(newJwt))
+            {
+                return null;
+            }
+            UserDto? user = ValidateJwtLocally(newJwt);
+            if (user != null)
+            {
+                context.Items["JWT"] = newJwt;
+
+                // IMPORTANT: Also update the Authorization header for downstream services
+                context.Request.Headers.Authorization = $"Bearer {newJwt}";
+            }
+
+
+            return user;
         }
 
-        // ------------------ Refresh JWT using refresh token ------------------
-        private async Task<UserDto> RefreshJwtUsingRefreshToken(HttpContext context, string refreshToken)
+        private UserDto? ValidateJwtLocally(string jwtToken)
         {
-            using var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("Cookie", $"REFRESH_TOKEN={refreshToken}");
+            if (string.IsNullOrWhiteSpace(jwtToken))
+                return null;
 
-            var response = await httpClient.PostAsync("http://localhost:8080/api/auth/refresh-token", null);
-            if (!response.IsSuccessStatusCode)
-                throw new UnauthorizedAccessException($"Refresh token request failed with status {response.StatusCode}");
-
-            var result = await response.Content.ReadFromJsonAsync<RefreshResponse>();
-            if (result == null)
-                throw new UnauthorizedAccessException("Refresh token API returned null response.");
-
-            if (string.IsNullOrEmpty(result.Token))
-                throw new UnauthorizedAccessException("Refresh token API returned empty token.");
-
-            var validatedUser = ValidateJwtLocally(result.Token, context);
-            if (validatedUser == null)
-                throw new UnauthorizedAccessException("Refreshed JWT could not be validated.");
-
-            _logger.LogInformation("JWT successfully refreshed for EmpId={EmpId}", validatedUser.EmpId);
-            return validatedUser;
-        }
-
-        // ------------------ Local JWT Validation ------------------
-        private UserDto ValidateJwtLocally(string jwtToken, HttpContext context)
-        {
             var tokenHandler = new JwtSecurityTokenHandler();
+            
             var key = Encoding.UTF8.GetBytes(_jwtSecret);
 
-            var validationParameters = new TokenValidationParameters
+            var validationParams = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = false,
                 ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero
+                ClockSkew = TimeSpan.FromMinutes(0)
             };
 
-            var principal = tokenHandler.ValidateToken(jwtToken, validationParameters, out var validatedToken);
-            if (validatedToken is not JwtSecurityToken)
-                throw new UnauthorizedAccessException("Invalid JWT token structure.");
-
-            var empIdClaim = principal.FindFirst("empId")?.Value;
-            var designationClaim = principal.FindFirst("designation")?.Value;
-
-            if (string.IsNullOrEmpty(empIdClaim))
-                throw new UnauthorizedAccessException("empId claim missing in JWT.");
-
-            if (!int.TryParse(empIdClaim, out var empId))
-                throw new UnauthorizedAccessException($"Invalid empId value: {empIdClaim}");
-
-            return new UserDto
+            try
             {
-                EmpId = empId,
-                Designation = designationClaim ?? "Unknown",
-                Authenticated = true
-            };
-        }
+                var principal = tokenHandler.ValidateToken(jwtToken, validationParams, out var validatedToken);
 
-        // ------------------ Respond Unauthorized ------------------
-        private async Task RespondUnauthorized(HttpContext context, string message)
-        {
-            if (!context.Response.HasStarted)
+                if (validatedToken is not JwtSecurityToken jwt ||
+                    !jwt.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                    return null;
+
+                var empIdClaim = principal.FindFirst(CustomClaimTypes.EmpId)?.Value;
+                var designationClaim = principal.FindFirst(CustomClaimTypes.Designation)?.Value;
+
+
+                return new UserDto
+                {
+                    EmpId = empIdClaim ?? "Unknown",
+                    Designation = designationClaim ?? "Unknown",
+
+                };
+            }
+            catch
             {
-                context.Response.Clear();
-                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                context.Response.ContentType = "application/json";
-                await context.Response.WriteAsJsonAsync(new { error = message });
+                return null;
             }
         }
     }
 
-    // ------------------ DTOs ------------------
-    public class UserDto
-    {
-        public int EmpId { get; set; }
-        public string Designation { get; set; }
-        public bool Authenticated { get; set; }
-    }
-
     public class RefreshResponse
     {
-        public string Token { get; set; }
-        public UserDto User { get; set; }
+        public string Token { get; set; }= string.Empty;
+        public User User { get; set; } = new();
+    }
+
+    public class User
+    {
+        public bool Authenticated { get; set; }
+        public int EmpId { get; set; }
+        public string Designation { get; set; } = string.Empty;
+        public UserAttributes UserAttributes { get; set; } = new();
+    }
+
+    public class UserAttributes
+    {
+        public string GivenName { get; set; } = string.Empty;
+        public string FamilyName { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Id { get; set; } = string.Empty;
+        public string Picture { get; set; } = string.Empty;
+    }   
+
+
+
+    public static class CustomClaimTypes
+    {
+        public const string EmpId = "empId";
+        public const string Designation = "designation";
     }
 }

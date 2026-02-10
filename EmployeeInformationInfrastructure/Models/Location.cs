@@ -1,4 +1,7 @@
-﻿namespace EmpInfoInfra.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace EmpInfoInfra.Models;
 
 public partial class Location
 {

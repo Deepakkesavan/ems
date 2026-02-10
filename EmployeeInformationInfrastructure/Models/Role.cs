@@ -1,4 +1,7 @@
-﻿namespace EmpInfoInfra.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace EmpInfoInfra.Models;
 
 public partial class Role
 {
@@ -10,7 +13,7 @@ public partial class Role
 
     public Guid Id { get; set; }
 
-    public DateTime? UpdatedTime { get; set; }
+    //public DateTime? UpdatedTime { get; set; }
 
     public string? CreatedBy { get; set; }
 

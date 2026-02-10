@@ -1,4 +1,7 @@
-﻿namespace EmpInfoInfra.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace EmpInfoInfra.Models;
 
 public partial class PersonalDetail
 {
@@ -28,13 +31,15 @@ public partial class PersonalDetail
 
     public Guid Id { get; set; }
 
-    public DateTime? UpdatedTime { get; set; }
+    //public DateTime? UpdatedTime { get; set; }
 
     public string? CreatedBy { get; set; }
 
     public string? UpdatedBy { get; set; }
 
     public bool IsActive { get; set; }
+
+    public string? PersonalEmail { get; set; }
 
     public virtual Employee Emp { get; set; } = null!;
 }

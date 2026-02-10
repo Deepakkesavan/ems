@@ -1,4 +1,5 @@
 ﻿using EmpInfoInner.Middleware;
+using EmpInfoService.Common;
 using EmpInfoService.Model;
 using EmpInfoService.Services.ServiceImpl;
 using EmployeeInformationInner.Services.Interfaces;
@@ -7,15 +8,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmployeeInformationInner.Controllers
 {
     [Route("api/[controller]")]
-    public class EmployeeController : ControllerBase
-    {
+    public class EmployeeController :ControllerBase {
         private readonly IEmployeeDetails _employeeDetails;
         private readonly EmpService _empService;
+        private readonly UserPermissionService _userPermissionService;
+        private readonly CommonService _commonService;
 
-        public EmployeeController(IEmployeeDetails employeeDetails, EmpService empService)
-        {
+        public EmployeeController(IEmployeeDetails employeeDetails,EmpService empService,UserPermissionService userPermissionService,CommonService commonService) {
             _employeeDetails = employeeDetails;
             _empService = empService;
+            _userPermissionService = userPermissionService;
+            _commonService = commonService;
         }
         //retrives data from external custom cache library based on user query(EmployeeCacheManager)
         //[HttpGet("SharedCache")]
@@ -25,92 +28,87 @@ namespace EmployeeInformationInner.Controllers
         //}
 
 
-        private async Task<UserDto> GetUserDtoAsync()
-        {
-            if (HttpContext.User.Identity?.IsAuthenticated ?? false)
-            {
-                var empIdClaim = HttpContext.User.FindFirst("empId")?.Value;
-                var designationClaim = HttpContext.User.FindFirst("designation")?.Value;
-
-                if (int.TryParse(empIdClaim, out var empId))
-                {
-                    return new UserDto
-                    {
-                        EmpId = empId,
-                        Designation = designationClaim ?? "Unknown",
-                        Authenticated = true
-                    };
-                }
-            }
-
-            throw new Exception("Session expired or user not authenticated");
-                    }
-
-
-
 
 
         //Retrives employees from in-memory cache based on user query
         [HttpGet("InMemoryCache")]
-        public async Task<List<EmployeeDto>> GetAllEmployeesFromCache([FromQuery] string query)
-        {
-            var user = await GetUserDtoAsync();
-            
+        public async Task<List<EmployeeDto>> GetAllEmployeesFromCache([FromQuery] string query) {
+            var user = await _commonService.GetUserDtoAsync();
+
 
             return _employeeDetails.GetAllEmployeesFromCache(query);
         }
 
         [HttpGet("TempCache")]
-        public async Task<ActionResult<List<EmployeeDto>>> GetEmployeeDetailsFromCache()
-        {
-            var user = await GetUserDtoAsync();
+        public async Task<ActionResult<List<EmployeeDto>>> GetEmployeeDetailsFromCache() {
+            var user = await _commonService.GetUserDtoAsync();
 
-            List<EmployeeDto> result= _employeeDetails.GetEmployeeDetailsFromCache();
+            List<EmployeeDto> result = _employeeDetails.GetEmployeeDetailsFromCache();
             return Ok(result);
         }
-        [HttpPost("GetAllEmployeeDetails")]
-        public async Task<ActionResult<List<EmployeeDto>>> GetEmployeeDetails()
-        {
-            var user = await GetUserDtoAsync();
+        [HttpPost("GetAllEmployee")]
+        public async Task<ActionResult<List<EmployeeDto>>> GetEmployeeDetails() {
+            var user = await _commonService.GetUserDtoAsync();
 
             List<EmployeeDto> result = await _empService.GetEmployeeDetails();
             return Ok(result);
         }
-        [HttpPost("GetEmployeeDetailsById")]
-        public async Task<ActionResult<EmployeeDto>> GetEmployeeDetailsById()
-        {
-            UserDto user = await GetUserDtoAsync();
+        [HttpPost("GetEmployeeById")]
+        public async Task<ActionResult<EmployeeDto>> GetEmployeeDetailsById() {
+            UserDto user = await _commonService.GetUserDtoAsync();
             Console.WriteLine(user.EmpId);
-            //lo
-
             EmployeeDto result = await _empService.GetEmployeeDetailsById(user.EmpId.ToString());
             return Ok(result);
         }
 
         [HttpPost("UpdateEmployee")]
-        public async Task<ActionResult<string>> UpdateEmployeeDetails([FromBody] UpdateEmployeeDto updatedEmployeeDto)
-        {
-            var user = await GetUserDtoAsync();
+        public async Task<ActionResult<string>> UpdateEmployeeDetails([FromBody] UpdateEmployeeDto updatedEmployeeDto) {
+            var user = await _commonService.GetUserDtoAsync();
 
             Console.WriteLine(updatedEmployeeDto);
             string result = await _empService.UpdateEmployeeDetails(updatedEmployeeDto);
             return Ok(result);
         }
-        [HttpPost("UploadPhoto")]
-        public async Task<ActionResult<string>> UploadProfile([FromForm] BaseRequestDto requestDto)
-        {
-            var user = await GetUserDtoAsync();
+        [HttpPost("UploadProfile")]
+        public async Task<ActionResult<string>> UploadProfile([FromForm] ProfileDto profileDto) {
+            var user = await _commonService.GetUserDtoAsync();
 
-            var result = await _empService.UploadProfile(requestDto);
+            var result = await _empService.UploadProfile(profileDto);
             return result;
         }
-        [HttpPost("Getprofile")]
-        public async Task<IActionResult> GetProfile([FromBody] BaseRequestDto requestDto)
-        {
-            var user = await GetUserDtoAsync();
+        [HttpPost("GetProfile")]
+        public async Task<IActionResult> GetProfile([FromBody] BaseRequestDto requestDto) {
+            var user = await _commonService.GetUserDtoAsync();
 
             var result = await _empService.GetProfile(requestDto);
-            return File(result, "image/png");
+            return File(result,"image/png");
+        }
+
+        [HttpPost("CheckUserAccess")]
+        public async Task<Dictionary<string,bool>> GetUserAccess([FromBody] BaseRequestDto requestDto) {
+            var user = await _commonService.GetUserDtoAsync();
+
+            return await _userPermissionService.GetUserAccess(user.EmpId.ToString());
+        }
+
+        [HttpPost("CheckUserAppAccess")]
+        public async Task<Dictionary<string,bool>> CheckUserAppAccess([FromBody] BaseRequestDto requestDto) {
+            var user = await _commonService.GetUserDtoAsync();
+
+            return await _userPermissionService.CheckUserAppAccess(requestDto);
+        }
+
+
+        [HttpPost("Basic")]
+        public async Task<List<EmployeeBasicDto>> GetEmployeeBasicDetails() {
+            return await _empService.GetEmployeeBasicDetails();
+        }
+
+
+        [HttpPost("Email/Exist")]
+        public async Task<bool> DoesEmployeeEmailExist([FromBody] EmployeeEmailDto req) {
+           
+            return await _empService.DoesEmpEmailExist(req);
         }
 
     }

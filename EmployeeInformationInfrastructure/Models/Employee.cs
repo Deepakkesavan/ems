@@ -1,4 +1,7 @@
-﻿namespace EmpInfoInfra.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace EmpInfoInfra.Models;
 
 public partial class Employee
 {
@@ -10,15 +13,11 @@ public partial class Employee
 
     public string Email { get; set; } = null!;
 
-    public DateTime? CreatedAt { get; set; }
-
     public DateTime? LastModified { get; set; }
 
     public byte[]? Profile { get; set; }
 
     public DateTime CreatedTime { get; set; }
-
-    public DateTime? UpdatedTime { get; set; }
 
     public string? CreatedBy { get; set; }
 

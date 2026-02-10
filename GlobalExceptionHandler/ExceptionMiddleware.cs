@@ -46,6 +46,13 @@ namespace GlobalExceptionHandler
                     errorResponse.TraceId = traceId;
                     errorResponse.Message = exception.Message+exception.InnerException;
                     break;
+                case BadRequestException:
+                    errorResponse.StatusCode = HttpStatusCode.BadRequest;
+                    errorResponse.StackTrace = exception.StackTrace;
+                    errorResponse.TraceId = traceId;
+                    errorResponse.Message = exception.Message + exception.InnerException;
+                    break;
+
                 case DataNotFoundException:
                     errorResponse.StatusCode = HttpStatusCode.NotFound;
                     errorResponse.StackTrace = exception.StackTrace;

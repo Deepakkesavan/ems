@@ -1,4 +1,7 @@
-﻿namespace EmpInfoInfra.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace EmpInfoInfra.Models;
 
 public partial class SsoUser
 {
@@ -9,4 +12,8 @@ public partial class SsoUser
     public string Password { get; set; } = null!;
 
     public string Email { get; set; } = null!;
+
+    public DateOnly? ExitDate { get; set; }
+
+    public bool? FirstTimeLogin { get; set; }
 }

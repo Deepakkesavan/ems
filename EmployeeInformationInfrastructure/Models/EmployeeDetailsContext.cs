@@ -1,17 +1,18 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using EmpInfoInfra.ConncectionStrings;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmpInfoInfra.Models;
 
 public partial class EmployeeDetailsContext : DbContext
 {
-    public EmployeeDetailsContext()
-    {
-    }
-
-    public EmployeeDetailsContext(DbContextOptions<EmployeeDetailsContext> options)
+    private readonly DbConnectionStrings _dbConnectionStrings;
+    
+    public EmployeeDetailsContext(DbContextOptions<EmployeeDetailsContext> options,DbConnectionStrings dbConnectionStrings)
         : base(options)
     {
+        _dbConnectionStrings = dbConnectionStrings;
     }
 
     public virtual DbSet<Billing> Billings { get; set; }
@@ -21,6 +22,8 @@ public partial class EmployeeDetailsContext : DbContext
     public virtual DbSet<Department> Departments { get; set; }
 
     public virtual DbSet<Designation> Designations { get; set; }
+
+    public virtual DbSet<DesignationPermission> DesignationPermissions { get; set; }
 
     public virtual DbSet<EmpType> EmpTypes { get; set; }
 
@@ -36,17 +39,17 @@ public partial class EmployeeDetailsContext : DbContext
 
     public virtual DbSet<Project> Projects { get; set; }
 
+    public virtual DbSet<PublicUser> PublicUsers { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<SsoUser> SsoUsers { get; set; }
-
-    public virtual DbSet<UserDetail> UserDetails { get; set; }
 
     public virtual DbSet<WorkInfo> WorkInfos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=10.2.1.4,52752;Initial Catalog=employee-details;User ID=clarium-usr;Password=Clarium@123;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer(_dbConnectionStrings.MainDb);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -122,6 +125,41 @@ public partial class EmployeeDetailsContext : DbContext
             entity.Property(e => e.IsActive).HasDefaultValue(true);
         });
 
+        modelBuilder.Entity<DesignationPermission>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_applications");
+
+            entity.ToTable("DesignationPermission");
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("(newid())")
+                .HasColumnName("Id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("CreatedAt");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("CreatedBy");
+            entity.Property(e => e.DesignationGuid).HasColumnName("DesignationGuid");
+            entity.Property(e => e.PermissionGuid).HasColumnName("PermissionGuid");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("UpdatedAt");
+            entity.Property(e => e.UpdatedBy)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("UpdatedBy");
+
+            entity.HasOne(d => d.Designation).WithMany(p => p.DesignationPermissions)
+                .HasPrincipalKey(p => p.Id)
+                .HasForeignKey(d => d.DesignationGuid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_dp_designation");
+        });
+
         modelBuilder.Entity<EmpType>(entity =>
         {
             entity.HasKey(e => e.TypeId).HasName("PK__EmpType__516F039530A76B42");
@@ -147,7 +185,6 @@ public partial class EmployeeDetailsContext : DbContext
                 .HasMaxLength(30)
                 .IsUnicode(false)
                 .HasColumnName("EmpID");
-            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.CreatedTime).HasDefaultValueSql("(getutcdate())");
             entity.Property(e => e.Email)
                 .HasMaxLength(60)
@@ -233,9 +270,6 @@ public partial class EmployeeDetailsContext : DbContext
             entity.Property(e => e.OtpCode)
                 .HasMaxLength(50)
                 .HasColumnName("otpCode");
-            entity.Property(e => e.Password)
-                .HasMaxLength(255)
-                .HasColumnName("password");
             entity.Property(e => e.Username)
                 .HasMaxLength(255)
                 .HasColumnName("username");
@@ -275,6 +309,9 @@ public partial class EmployeeDetailsContext : DbContext
             entity.Property(e => e.PermanentAddress)
                 .HasMaxLength(200)
                 .IsUnicode(false);
+            entity.Property(e => e.PersonalEmail)
+                .HasMaxLength(100)
+                .IsUnicode(false);
             entity.Property(e => e.PersonalPhoneNumber)
                 .HasMaxLength(20)
                 .IsUnicode(false);
@@ -303,6 +340,31 @@ public partial class EmployeeDetailsContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("Project");
         });
+
+        modelBuilder.Entity<PublicUser>(entity =>
+        {
+            entity.HasKey(e => e.PublicId).HasName("PK__PublicUs__26B39584EC4E0B91");
+
+            entity.ToTable("PublicUser");
+
+            entity.Property(e => e.PublicId).HasColumnName("publicId");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
+            entity.Property(e => e.IsActive).HasColumnName("isActive");
+            entity.Property(e => e.IsFirstTimeLogin).HasColumnName("isFirstTimeLogin");
+            entity.Property(e => e.PublicEmail)
+                .HasMaxLength(255)
+                .HasColumnName("publicEmail");
+            entity.Property(e => e.PublicPassword)
+                .HasMaxLength(255)
+                .HasColumnName("publicPassword");
+            entity.Property(e => e.PublicUsername)
+                .HasMaxLength(255)
+                .HasColumnName("publicUsername");
+            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+        });
+
 
         modelBuilder.Entity<Role>(entity =>
         {
@@ -333,6 +395,10 @@ public partial class EmployeeDetailsContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .HasColumnName("email");
+            entity.Property(e => e.ExitDate).HasColumnName("exit_date");
+            entity.Property(e => e.FirstTimeLogin)
+                .HasDefaultValue(true)
+                .HasColumnName("first_time_login");
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .HasColumnName("password");
@@ -341,24 +407,6 @@ public partial class EmployeeDetailsContext : DbContext
                 .HasColumnName("username");
         });
 
-        modelBuilder.Entity<UserDetail>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__user_det__3213E83FA3DED2F5");
-
-            entity.ToTable("user_details");
-
-            entity.HasIndex(e => e.Username, "UKqqadnciq8gixe1qmxd0rj9cyk").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Password)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("password");
-            entity.Property(e => e.Username)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("username");
-        });
 
         modelBuilder.Entity<WorkInfo>(entity =>
         {

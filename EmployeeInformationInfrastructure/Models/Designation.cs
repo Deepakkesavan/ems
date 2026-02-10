@@ -1,4 +1,7 @@
-﻿namespace EmpInfoInfra.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace EmpInfoInfra.Models;
 
 public partial class Designation
 {
@@ -17,6 +20,8 @@ public partial class Designation
     public string? UpdatedBy { get; set; }
 
     public bool IsActive { get; set; }
+
+    public virtual ICollection<DesignationPermission> DesignationPermissions { get; set; } = new List<DesignationPermission>();
 
     public virtual ICollection<WorkInfo> WorkInfos { get; set; } = new List<WorkInfo>();
 }

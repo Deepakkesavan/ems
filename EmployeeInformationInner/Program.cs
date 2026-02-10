@@ -1,49 +1,100 @@
-﻿using EmpInfoInfra.Models;
+﻿using EmpInfoInfra.CatalogModels;
+using EmpInfoInfra.ConncectionStrings;
+using EmpInfoInfra.Models;
 using EmpInfoInner.Config;
 using EmpInfoInner.Middleware;
+using EmpInfoService.Common;
 using EmpInfoService.Mapper;
 using EmpInfoService.Services.ServiceImpl;
 using EmployeeInformationInner.Services.Interfaces;
 using GlobalExceptionHandler;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Serilog;
+using EmpInfoService.Constant;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+bool isDevelopment = builder.Environment.IsDevelopment();
+builder.Services.AddMemoryCache();
 
-// Add services to the container.
-builder.Services.AddDbContext<EmployeeDetailsContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSingleton<DbConnectionStrings>(serviceProvider =>
+{
+    // 1. Create a scope to resolve Scoped services like MemoryCacheService
+    using IServiceScope scope = serviceProvider.CreateScope();
+    MemoryCacheService memoryCacheService = scope.ServiceProvider.GetRequiredService<MemoryCacheService>();
 
+    // 2. Fetch the base connection strings from your cache
+    string empBase = memoryCacheService.GetConnectionString(BussinessConstant.EMPLOYEE_CONNECTION_STRING_KEY).GetAwaiter().GetResult();
+    string catBase = memoryCacheService.GetConnectionString(BussinessConstant.CATALOG_CONNECTION_STRING_KEY).GetAwaiter().GetResult();
 
-//builder.Services.AddAuthentication(JwtBeareD.AuthenticationScheme)
-//    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+    // 3. Build the final strings with credentials
+    string empFull = new SqlConnectionStringBuilder(empBase)
+    {
+        UserID = builder.Configuration["DB_USER"],
+        Password = builder.Configuration["DB_PASSWORD"]
+    }.ConnectionString;
+
+    string catFull = new SqlConnectionStringBuilder(catBase)
+    {
+        UserID = builder.Configuration["DB_USER"],
+        Password = builder.Configuration["DB_PASSWORD"]
+    }.ConnectionString;
+
+    return new DbConnectionStrings
+    {
+        MainDb = empFull,
+        CatalogDb = catFull
+    };
+});
+
+builder.Services.AddDbContext<EmployeeDetailsContext>((serviceProvider, options) =>
+{
+    DbConnectionStrings connStrings = serviceProvider.GetRequiredService<DbConnectionStrings>();
+    options.UseSqlServer(connStrings.MainDb);
+});
+
+builder.Services.AddDbContext<CatalogContext>((serviceProvider, options) =>
+{
+    DbConnectionStrings connStrings = serviceProvider.GetRequiredService<DbConnectionStrings>();
+    options.UseSqlServer(connStrings.CatalogDb);
+});
 
 builder.Services.AddScoped<IEmployeeDetails, EmployeeDetails>();
 builder.Services.AddScoped<EmpService>();
 builder.Services.AddScoped<DesignationService>();
+builder.Services.AddScoped<DepartmentService>();
 builder.Services.AddScoped<EmployeeTypeService>();
 builder.Services.AddScoped<RoleService>();
 builder.Services.AddScoped<AdminService>();
-
-//builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<OrgChartService>();
+builder.Services.AddScoped<UserPermissionService>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddControllers();
-builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<SqlEmployeeWatcher>();
 builder.Services.AddAutoMapper(cnf => { }, typeof(MappingProfile).Assembly);
+builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<CommonService>();
+builder.Services.AddSingleton<MemoryCacheService>();
 
-// 🧩 1️⃣ Add CORS policy here
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
+// Add CORS policy to allow requests from the remote application
+string[] allowedOrigins = isDevelopment
+    ? builder.Configuration.GetSection("CorsSettings:DevelopmentOrigins").Get<string[]>() ?? ["*"]
+    : builder.Configuration.GetSection("CorsSettings:ProductionOrigins").Get<string[]>()
+        ?.Where(origin => !string.IsNullOrWhiteSpace(origin)).ToArray() 
+        ?? throw new InvalidOperationException("CORS production origins are missing.");
+
+    builder.Services.AddCors(options =>
     {
-        policy.WithOrigins("http://localhost:5174") // your React app
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-               .AllowCredentials();
+        options.AddPolicy("AllowAllOrigins", policy =>
+        {
+            policy.WithOrigins(allowedOrigins)
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
     });
-});
 
 // Add controllers with filter globally
 builder.Services.AddControllers(options =>
@@ -60,14 +111,12 @@ builder.ConfigureSerilog();
 builder.Host.UseSerilog((context, services, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
-app.UseMiddleware<ExceptionMiddleware>();
+app.UsePathBase("/emsapi");
 
 // Force initialization of the SqlEmployeeWatcher service.
 app.Services.GetRequiredService<SqlEmployeeWatcher>();
-
-var memoryCache = app.Services.GetRequiredService<IMemoryCache>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -76,18 +125,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
-
-// 🧩 2️⃣ Apply CORS *before* Authorization
-app.UseCors("AllowFrontend");
-//();
-
+app.UseCors("AllowAllOrigins");
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseMiddleware<JwtMiddleware>();
-
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

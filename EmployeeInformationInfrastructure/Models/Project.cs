@@ -1,4 +1,5 @@
-﻿namespace EmpInfoInfra.Models;
+﻿
+namespace EmpInfoInfra.Models;
 
 public partial class Project
 {
@@ -10,7 +11,7 @@ public partial class Project
 
     public Guid Id { get; set; }
 
-    public DateTime? UpdatedTime { get; set; }
+    //public DateTime? UpdatedTime { get; set; }
 
     public string? CreatedBy { get; set; }
 

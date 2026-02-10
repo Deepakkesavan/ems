@@ -1,4 +1,7 @@
-﻿namespace EmpInfoInfra.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace EmpInfoInfra.Models;
 
 public partial class Otp
 {
@@ -6,9 +9,7 @@ public partial class Otp
 
     public string Email { get; set; } = null!;
 
-    public string Username { get; set; } = null!;
-
-    public string Password { get; set; } = null!;
+    public string? Username { get; set; }
 
     public string OtpCode { get; set; } = null!;
 

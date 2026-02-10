@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8SwNYf94bRQ=",
+  "dgSpecHash": "AcMT7CQ4wic=",
   "success": true,
-  "projectFilePath": "C:\\Users\\DeepakK\\Source\\Repos\\employee-information-inner\\EmpInfoService\\EmpInfoService.csproj",
+  "projectFilePath": "C:\\Users\\DeepakK\\source\\repos\\employee-information-api\\EmpInfoService\\EmpInfoService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DeepakK\\.nuget\\packages\\automapper\\15.0.1\\automapper.15.0.1.nupkg.sha512",
     "C:\\Users\\DeepakK\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",

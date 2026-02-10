@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DeepakK\\Source\\Repos\\employee-information-inner\\GlobalExceptionHandler\\GlobalExceptionHandler.csproj": {}
+    "C:\\Users\\DeepakK\\source\\repos\\employee-information-api\\GlobalExceptionHandler\\GlobalExceptionHandler.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DeepakK\\Source\\Repos\\employee-information-inner\\GlobalExceptionHandler\\GlobalExceptionHandler.csproj": {
+    "C:\\Users\\DeepakK\\source\\repos\\employee-information-api\\GlobalExceptionHandler\\GlobalExceptionHandler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DeepakK\\Source\\Repos\\employee-information-inner\\GlobalExceptionHandler\\GlobalExceptionHandler.csproj",
+        "projectUniqueName": "C:\\Users\\DeepakK\\source\\repos\\employee-information-api\\GlobalExceptionHandler\\GlobalExceptionHandler.csproj",
         "projectName": "GlobalExceptionHandler",
-        "projectPath": "C:\\Users\\DeepakK\\Source\\Repos\\employee-information-inner\\GlobalExceptionHandler\\GlobalExceptionHandler.csproj",
+        "projectPath": "C:\\Users\\DeepakK\\source\\repos\\employee-information-api\\GlobalExceptionHandler\\GlobalExceptionHandler.csproj",
         "packagesPath": "C:\\Users\\DeepakK\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DeepakK\\Source\\Repos\\employee-information-inner\\GlobalExceptionHandler\\obj\\",
+        "outputPath": "C:\\Users\\DeepakK\\source\\repos\\employee-information-api\\GlobalExceptionHandler\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
